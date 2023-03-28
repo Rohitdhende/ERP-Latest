@@ -30,7 +30,7 @@ import Dropdown from '../components/dropdown';
 // mock
 // import CONTINENT_LIST from '../_mock/continents';
 import Modal from '../components/modal';
-import {  CONTINENT_LIST } from '../_mock/continents';
+import { CONTINENT_LIST } from '../_mock/continents';
 
 // ----------------------------------------------------------------------
 
@@ -105,14 +105,16 @@ export default function DashboardPage() {
   };
 
   useEffect(() => {
-    const url = 'http://100.24.74.193/continent/';
     const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        console.log(response);
-      } catch (error) {
-        console.log('error', error);
-      }
+      const requestOptions = {
+        method: 'GET',
+        redirect: 'follow',
+      };
+
+      fetch('100.24.74.193/continent/', requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log('res', result))
+        .catch((error) => console.log('error', error));
     };
 
     fetchData();
