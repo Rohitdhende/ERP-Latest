@@ -1,11 +1,3 @@
-import { BASE_URL } from '../constants';
-
-export const getContinentList = async () => {
-  const response = await fetch(`${BASE_URL}/continent`);
-  const json = await response.json();
-  console.log(json);
-  return json;
-};
 
 export const CONTINENT_LIST = [
   {

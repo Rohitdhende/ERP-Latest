@@ -14,7 +14,6 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import Logo from '../../assets/logo.png';
-import Analytics from '../../assets/analytics.png';
 import './Login.css';
 
 import Background from '../../assets/login-background.jpg';
