@@ -30,7 +30,7 @@ import Dropdown from '../components/dropdown';
 // mock
 // import CONTINENT_LIST from '../_mock/continents';
 import Modal from '../components/modal';
-import { getContinentList, CONTINENT_LIST } from '../_mock/continents';
+import {  CONTINENT_LIST } from '../_mock/continents';
 
 // ----------------------------------------------------------------------
 
