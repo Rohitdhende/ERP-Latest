@@ -1,13 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import { Button } from '@mui/material';
-import { createData, getContinentList, updateData } from '../../api';
+import {updateData } from '../../api';
 import Dropdown from '../dropdown';
 
 const style = {
@@ -46,11 +45,11 @@ export default function InfoModal(props) {
   
 
   const [name, setName] = useState(selectedData?.name ? selectedData.name : '');
-  const [selectedContinent, setSelectedContinent] = useState();
+  // const [selectedContinent, setSelectedContinent] = useState();
   const handleUpdate = () => {
     const { id } = selectedData;
 
-    updateData(type, { name, id, selectedStatus, selectedContinent }, (res) => {
+    updateData(type, { name, id, selectedStatus }, (res) => {
       setOpen(false);
       setReqStatus(res.STATUS);
       if (res.STATUS === 1) {

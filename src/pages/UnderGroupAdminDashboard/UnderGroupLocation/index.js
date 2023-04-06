@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import {
   Autocomplete,
-  Button,
   Container,
   FormControl,
   MenuItem,
@@ -33,16 +32,16 @@ const UnderGroupLocation = () => {
     setFormData({ ...formData, [prop]: event.target.value.trim() });
   };
 
-  // Handle Form Submit
-  const handleSubmitForm = () => {
-    console.log(formData);
-    // navigate('/under-group-admin-actual');
-  };
+  // // Handle Form Submit
+  // const handleSubmitForm = () => {
+  //   console.log(formData);
+  //   // navigate('/under-group-admin-actual');
+  // };
 
-  // Reset Data function to reset form inputs
-  const resetData = () => {
-    setFormData(initialFormState);
-  };
+  // // Reset Data function to reset form inputs
+  // const resetData = () => {
+  //   setFormData(initialFormState);
+  // };
 
   // Update Country list after selecting the state
   const newCountryList = countries.filter((items) => items.continent.includes(formData?.continent));

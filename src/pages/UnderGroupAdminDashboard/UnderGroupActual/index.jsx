@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Container, FormControl, OutlinedInput, Typography } from '@mui/material';
+import {  Container, FormControl, OutlinedInput, Typography } from '@mui/material';
 
 const UnderGroupActual = () => {
   const initialFormState = {
@@ -17,15 +17,15 @@ const UnderGroupActual = () => {
     setFormData({ ...formData, [prop]: event.target.value.trim() });
   };
 
-  // Handle Form Submit
-  const handleSubmitForm = () => {
-    console.log(formData);
-  };
+  // // Handle Form Submit
+  // const handleSubmitForm = () => {
+  //   console.log(formData);
+  // };
 
-  // Reset Data function to reset form inputs
-  const resetData = () => {
-    setFormData(initialFormState);
-  };
+  // // Reset Data function to reset form inputs
+  // const resetData = () => {
+  //   setFormData(initialFormState);
+  // };
 
   console.log('index', formData);
 

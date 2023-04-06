@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 // @mui
 import {
   Card,
