@@ -20,19 +20,16 @@ import {
   TableContainer,
   TablePagination,
 } from '@mui/material';
-import { sentenceCase } from 'change-case';
-import { getContinentList, getStateList, getCountryList ,getCityList } from '../api';
+
 
 // components
 import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
 // sections
 import { ListHead, ListToolbar } from '../sections/@dashboard/app';
-import Dropdown from '../components/dropdown';
 // mock
-// import CONTINENT_LIST from '../_mock/continents';
-import CreateModal from '../components/create-modal';
-import InfoModal from '../components/info-modal';
+import { users } from '../_mock/users';
+import UserModal from '../components/user-modal';
 
 // ----------------------------------------------------------------------
 
@@ -68,14 +65,14 @@ function applySortFilter(array, comparator, query) {
       array,
       (_data) =>
         _data.name.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
-        _data.id.toString().indexOf(query.toLowerCase()) !== -1
+        _data.email.toLowerCase().indexOf(query.toLowerCase()) !== -1
     );
   }
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function DashboardPage() {
-  // const [open, setOpen] = useState(null);
+export default function UsersPage() {
+  const [open, setOpen] = useState(null);
 
   const [page, setPage] = useState(0);
 
@@ -89,15 +86,13 @@ export default function DashboardPage() {
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const [tableData, setTableData] = useState([]);
+  const handleOpenMenu = (event) => {
+    setOpen(event.currentTarget);
+  };
 
-  // const handleOpenMenu = (event) => {
-  //   setOpen(event.currentTarget);
-  // };
-
-  // const handleCloseMenu = () => {
-  //   setOpen(null);
-  // };
+  const handleCloseMenu = () => {
+    setOpen(null);
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -107,13 +102,12 @@ export default function DashboardPage() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = tableData?.map((n) => n.name);
+      const newSelecteds = users?.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
-
   // multi select
   // const handleClick = (event, name) => {
   //   const selectedIndex = selected.indexOf(name);
@@ -143,96 +137,33 @@ export default function DashboardPage() {
     setPage(0);
     setFilterName(event.target.value);
   };
+  console.log("users",users)
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tableData.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - users.length) : 0;
 
-  const filteredData = applySortFilter(tableData, getComparator(order, orderBy), filterName);
+  const filteredData = applySortFilter(users, getComparator(order, orderBy), filterName);
 
   const isNotFound = !filteredData.length && !!filterName;
-  const SELECT_OPTIONS = [
-    { id: 0, name: 'continent' },
-    { id: 1, name: 'country' },
-    { id: 2, name: 'state' },
-    { id: 3, name: 'city' },
-  ];
-  const [selectedOption, setSelectedOption] = useState('continent');
 
   const TABLE_HEAD = [
-    { id: 'name', label: sentenceCase(selectedOption), alignRight: false },
-    { id: 'id', label: `${sentenceCase(selectedOption)} Code`, alignRight: false },
-    { id: 'active', label: 'Active', alignRight: false },
+    { id: 'name', label: 'User Name', alignRight: false },
+    { id: 'email', label: 'Email', alignRight: false },
+    { id: 'phone', label: 'Phone', alignRight: false },
+    { id: '' },
   ];
 
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
-  const [requestStatus, setRequestStatus] = useState(0);
-  useEffect(() => {
-    if (selectedOption === 'continent') {
-      (async () => {
-        const continents = await getContinentList();
-        setTableData(continents.continent);
-      })();
-    }
-
-    if (selectedOption === 'country') {
-      (async () => {
-        const countries = await getCountryList();
-        setTableData(countries.country);
-      })();
-    }
-
-    if (selectedOption === 'state') {
-      (async () => {
-        const states = await getStateList();
-        setTableData(states.state);
-      })();
-    }
-    if (selectedOption === 'city') {
-      (async () => {
-        const cities = await getCityList();
-        setTableData(cities.city);
-      })();
-    }
-  }, [selectedOption, requestStatus]);
-
-  const [selectedData, setSelectedData] = useState([]);
 
   return (
     <>
       <Helmet>
         <title> Dashboard </title>
       </Helmet>
-      {isCreateModalOpen && (
-        <CreateModal
-          type={selectedOption}
-          count={tableData.length}
-          open={isCreateModalOpen}
-          setOpen={setIsCreateModalOpen}
-          title={`Create ${sentenceCase(selectedOption)}`}
-          placeholder={sentenceCase(selectedOption)}
-          setReqStatus={(value) => setRequestStatus(value)}
-        />
-      )}
-
-      {isInfoModalOpen && (
-        <InfoModal
-          type={selectedOption}
-          count={tableData.length}
-          selectedData={selectedData}
-          open={isInfoModalOpen}
-          setOpen={setIsInfoModalOpen}
-          title={'Details'}
-          placeholder={sentenceCase(selectedOption)}
-          setReqStatus={(value) => setRequestStatus(value)}
-        />
-      )}
+      <UserModal open={isCreateModalOpen} setOpen={setIsCreateModalOpen} title={'Create User'} placeholder={'User'} />
+      <UserModal open={isEditModalOpen} setOpen={setIsEditModalOpen} title={'Edit Details'} placeholder={'user'} />
       <Container>
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Dropdown
-            options={SELECT_OPTIONS}
-            onSort={(event) => setSelectedOption(event.target.value)}
-            option={selectedOption}
-          />
+        <Stack direction="row" alignItems="center" justifyContent="flex-end" mb={5}>
           <Button
             variant="contained"
             sx={{
@@ -245,13 +176,13 @@ export default function DashboardPage() {
             startIcon={<Iconify icon="eva:plus-fill" />}
             onClick={() => setIsCreateModalOpen(true)}
           >
-            New {sentenceCase(selectedOption)}
+            New User
           </Button>
         </Stack>
 
         <Card>
           <ListToolbar
-            placeholder={`Search ${selectedOption}...`}
+            placeholder={`Search User...`}
             numSelected={selected.length}
             filterName={filterName}
             onFilterName={handleFilterByName}
@@ -264,7 +195,7 @@ export default function DashboardPage() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={tableData.length}
+                  rowCount={users.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
@@ -272,38 +203,29 @@ export default function DashboardPage() {
                 <TableBody>
                   {filteredData?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                     // eslint-disable-next-line camelcase
-                    const { id, name, status } = row;
+                    const { email, name, phone } = row;
                     const selectedData = selected.indexOf(name) !== -1;
 
                     return (
-                      <TableRow
-                        hover
-                        key={id}
-                        tabIndex={-1}
-                        selected={selectedData}
-                        onClick={() => {
-                          setSelectedData(row);
-                          setIsInfoModalOpen(true);
-                        }}
-                        sx={{ cursor: 'pointer' }}
-                      >
+                      <TableRow hover key={email} tabIndex={-1} selected={selectedData}>
                         <TableCell component="th" scope="row">
                           <Stack direction="row" alignItems="center" spacing={2}>
                             <Typography variant="subtitle2" noWrap>
-                              {name} {id}
+                              {name}
                             </Typography>
                           </Stack>
                         </TableCell>
 
-                        <TableCell align="left">{id}</TableCell>
-                        <TableCell align="left" sx={{ color: status ? 'green' : 'grey' }}>
-                          {status.toString()}
-                        </TableCell>
-                        {/* <TableCell align="right">
+                        <TableCell align="left">{email}</TableCell>
+                        <TableCell align="left">{phone}</TableCell>
+                        {/* <TableCell align="left" sx={{ color: status ? 'green' : 'grey' }}>
+                            {status.toString()}
+                          </TableCell> */}
+                        <TableCell align="right">
                           <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
                             <Iconify icon={'eva:more-vertical-fill'} />
                           </IconButton>
-                        </TableCell> */}
+                        </TableCell>
                       </TableRow>
                     );
                   })}
@@ -344,7 +266,7 @@ export default function DashboardPage() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={tableData.length}
+            count={users.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
@@ -353,7 +275,7 @@ export default function DashboardPage() {
         </Card>
       </Container>
 
-      {/* <Popover
+      <Popover
         open={Boolean(open)}
         anchorEl={open}
         onClose={handleCloseMenu}
@@ -380,12 +302,12 @@ export default function DashboardPage() {
           <Iconify icon={'eva:edit-fill'} sx={{ mr: 2 }} />
           Edit
         </MenuItem>
-        
+        {/* 
         <MenuItem sx={{ color: 'error.main' }}>
           <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
           Delete
-        </MenuItem>
-      </Popover> */}
+        </MenuItem> */}
+      </Popover>
     </>
   );
 }

@@ -8,6 +8,7 @@ import Page404 from './pages/Page404';
 import LoginPage from './pages/Login';
 import UnderGroupAdminLogin from './pages/UnderGroupAdminLogin';
 import UnderGroupAdminDashboard from './pages/UnderGroupAdminDashboard'
+import UsersPage from './pages/UsersPage';
 
 // ----------------------------------------------------------------------
 
@@ -19,6 +20,7 @@ export default function Router() {
       children: [
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <DashboardPage /> },
+        { path: 'users', element: <UsersPage /> },
       ],
     },
     {
@@ -29,6 +31,7 @@ export default function Router() {
       path: '/under-group-admin-login',
       element: <UnderGroupAdminLogin />,
     },
+    
     {
       path: '/under-group-admin-dashboard',
       element: <UnderGroupAdminDashboard />,

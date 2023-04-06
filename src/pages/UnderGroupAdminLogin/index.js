@@ -146,7 +146,7 @@ function UnderGroupAdminLogin() {
               }}
               onClick={() => {
                 notify();
-                navigate('/under-group-admin-location');
+                navigate('/under-group-admin-dashboard');
               }}
             >
               Login

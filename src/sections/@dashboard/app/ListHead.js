@@ -25,7 +25,6 @@ ListHead.propTypes = {
 
 export default function ListHead({ order, orderBy, headLabel, onRequestSort }) {
   const createSortHandler = (property) => (event) => {
-    console.log('cc', property);
     onRequestSort(event, property);
   };
 
@@ -44,9 +43,9 @@ export default function ListHead({ order, orderBy, headLabel, onRequestSort }) {
               direction={orderBy === headCell.id ? order : 'asc'}
               onClick={headCell.id === 'active' ? () => {} : createSortHandler(headCell.id)}
               sx={{
-                '&:hover':{
-                  cursor: 'default'
-                }
+                '&:hover': {
+                  cursor: headCell.id === 'active' ? 'default' : 'pointer',
+                },
               }}
             >
               {headCell.label}

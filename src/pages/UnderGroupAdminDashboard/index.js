@@ -1,16 +1,18 @@
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
+import { Button, Container } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import UnderGroupLocation from './UnderGroupLocation';
 import UnderGroupActual from './UnderGroupActual';
 import Header from '../../components/header';
+import PersonalDetail from '../../components/personal-detail';
 
 export default function BasicTabs() {
   const [value, setValue] = useState(0);
-
+  const [index, setIndex] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -39,16 +41,50 @@ export default function BasicTabs() {
           centered
           sx={{ backgroundColor: '#EFF0F3' }}
         >
-          <Tab label="Step 1" {...a11yProps(0)} />
-          <Tab label="Step 2" {...a11yProps(1)} />
+          <Tab label="Residential Details" {...a11yProps(0)} />
+          <Tab label="Personal Details" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <div style={{ paddingTop: '7rem' }}>
         <TabPanel value={value} index={0}>
-          <UnderGroupLocation />
+          {index === 0 && (
+            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <UnderGroupLocation />
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Button
+                  onClick={() => {
+                    setIndex(1);
+                  }}
+                >
+                  Next
+                </Button>
+              </Box>
+            </Container>
+          )}
+          {index === 1 && (
+            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <UnderGroupActual />
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Button
+                  onClick={() => {
+                    setIndex(0);
+                  }}
+                >
+                  Back
+                </Button>
+                <Button
+                  onClick={() => {
+                    setIndex(2);
+                  }}
+                >
+                  Next
+                </Button>
+              </Box>
+            </Container>
+          )}
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <UnderGroupActual />
+          <PersonalDetail />
         </TabPanel>
       </div>
     </Box>

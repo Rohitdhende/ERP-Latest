@@ -8,15 +8,16 @@ Dropdown.propTypes = {
   option: PropTypes.string,
   options: PropTypes.array,
   onSort: PropTypes.func,
+  disabled: PropTypes.bool
 };
 
-export default function Dropdown({ option, options, onSort }) {
+export default function Dropdown({ option, options, onSort,disabled }) {
     
   return (
-    <TextField select size="small" value={option} onChange={onSort} sx={{ outline: 'none', border: 'none' }}>
+    <TextField disabled={disabled} select size="small" value={option} onChange={onSort} sx={{ outline: 'none', border: 'none' }}>
       {options.map((option) => (
-        <MenuItem key={option.value} value={option.value}>
-          {option.label}
+        <MenuItem key={option.id} value={option.name}>
+          {option.name}
         </MenuItem>
       ))}
     </TextField>

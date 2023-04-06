@@ -38,7 +38,7 @@ const UnderGroupActual = () => {
         flexDirection: 'column',
       }}
     >
-      <Typography variant="h6">Residential Details</Typography>
+      {/* <Typography variant="h6">Residential Details</Typography> */}
       <Typography variant="body">Actual Level</Typography>
       <FormControl
         sx={{
@@ -88,7 +88,7 @@ const UnderGroupActual = () => {
           marginTop: '1rem',
         }}
       >
-        <Button onClick={resetData}>Cancel</Button>
+        {/* <Button onClick={resetData}>Cancel</Button>
         <Button
           onClick={handleSubmitForm}
           disabled={
@@ -102,7 +102,7 @@ const UnderGroupActual = () => {
           }
         >
           Submit
-        </Button>
+        </Button> */}
       </Container>
     </div>
   );

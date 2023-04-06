@@ -12,7 +12,7 @@ import {
   TextField,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-
+import { useNavigate } from "react-router-dom";
 import Logo from '../../assets/logo.png';
 import './Login.css';
 
@@ -28,6 +28,8 @@ function Login() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const navigate = useNavigate();
 
   return (
     <div
@@ -127,7 +129,11 @@ function Login() {
               paddingY: '0.5rem',
               borderRadius: 0.75,
             }}
+          onClick={()=>{
+            navigate("/dashboard/app");
+          }}
           >
+          
             Login
           </Button>
           {/* <Link to="/under-group-admin-login">

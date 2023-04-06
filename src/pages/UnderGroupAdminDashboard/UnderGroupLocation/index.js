@@ -62,7 +62,7 @@ const UnderGroupLocation = () => {
           flexDirection: 'column',
         }}
       >
-        <Typography variant="h6">Residential Details</Typography>
+        {/* <Typography variant="h6">Residential Details</Typography> */}
         <Typography variant="body">Virtual Level</Typography>
         <FormControl
           sx={{
@@ -176,7 +176,7 @@ const UnderGroupLocation = () => {
             marginTop: '1rem',
           }}
         >
-          <Button onClick={resetData}>Cancel</Button>
+          {/* <Button onClick={resetData}>Cancel</Button>
           <Button
             onClick={handleSubmitForm}
             disabled={
@@ -190,7 +190,7 @@ const UnderGroupLocation = () => {
             }
           >
             Submit
-          </Button>
+          </Button> */}
         </Container>
       </div>
     </>

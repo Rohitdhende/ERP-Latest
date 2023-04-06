@@ -14,7 +14,7 @@ import ScrollToTop from './components/scroll-to-top';
 export default function App() {
   return (
     <HelmetProvider>
-      <ToastContainer />
+      <ToastContainer autoClose={2000}/>
       <BrowserRouter>
         <ThemeProvider>
           <ScrollToTop />

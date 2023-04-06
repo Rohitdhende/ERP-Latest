@@ -4,8 +4,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import { Button } from '@mui/material';
+import {toast } from 'react-toastify'
 
 const style = {
   position: 'absolute',
@@ -19,14 +19,14 @@ const style = {
   p: 4,
 };
 
-BasicModal.propTypes = {
+UserModal.propTypes = {
   title: PropTypes.string,
   placeholder: PropTypes.string,
   open: PropTypes.bool,
   setOpen: PropTypes.func,
 };
 
-export default function BasicModal(props) {
+export default function UserModal(props) {
   const { open, setOpen, title, placeholder } = props;
 
   const handleClose = (event, reason) => {
@@ -34,9 +34,8 @@ export default function BasicModal(props) {
       setOpen(false);
     }
   };
-  const SELECT_OPTIONS = ['true', 'false'];
-  const [selectedOption, setSelectedOption] = useState('');
-  console.log('selectedOption', selectedOption);
+
+
   return (
     <div>
       <Modal
@@ -50,17 +49,9 @@ export default function BasicModal(props) {
             {title}
           </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-            <TextField id="continent-name" label={`${placeholder} Name`} variant="outlined" />
-            <TextField id="continent-code" label={`${placeholder} Code`} variant="outlined" />
-            <Autocomplete
-              disablePortal
-              id="status"
-              options={SELECT_OPTIONS}
-              renderInput={(params) => <TextField {...params} label="Status" />}
-              onChange={(event, newValue) => {
-                setSelectedOption(newValue);
-              }}
-            />
+            <TextField id="name" label="User Name" variant="outlined" />
+            <TextField id="email" label="Email" variant="outlined" type={'email'} />
+            <TextField id="phone" label="Phone Number" variant="outlined" type="number" />
           </Box>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 2, marginTop: 3 }}>
             <Button
@@ -71,6 +62,9 @@ export default function BasicModal(props) {
                 '&:hover': {
                   backgroundColor: '#6BDB8A',
                 },
+              }}
+              onClick={()=>{
+                toast("User added successfully")
               }}
             >
               Save
