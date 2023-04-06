@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -21,13 +20,12 @@ const style = {
 
 UserModal.propTypes = {
   title: PropTypes.string,
-  placeholder: PropTypes.string,
   open: PropTypes.bool,
   setOpen: PropTypes.func,
 };
 
 export default function UserModal(props) {
-  const { open, setOpen, title, placeholder } = props;
+  const { open, setOpen, title } = props;
 
   const handleClose = (event, reason) => {
     if (reason !== 'backdropClick') {
